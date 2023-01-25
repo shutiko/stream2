@@ -38,8 +38,10 @@ public class Main {
         List<Person> workableListMan = workableManStream
                 .filter(person -> person.getAge() > 18 && person.getAge() < 65 && person.getSex() == Sex.MAN && person.getEducation() == Education.HIGHER)
                 .collect(Collectors.toList());
+        List<Person> workableListUnsorted = new ArrayList<>(workableListWoman);
+        workableListUnsorted.addAll(workableListMan);
         // Получаем список потенциально работоспособных людей отсортированный по алфавиту
-        List<Person> workableList = Stream.concat(workableListWoman.stream(), workableListMan.stream())
+        List<Person> workableList = workableListUnsorted.stream()
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
     }
